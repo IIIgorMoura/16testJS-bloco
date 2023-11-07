@@ -1,6 +1,48 @@
+/* base */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     color: rgba(red, green, blue, alpha);
+}
+
+body {
+    font: 600 20px Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.nota {
+    display: flex;
+
+    width: 600px;
+    height: 200px;
+    
+    justify-content: center;
+    align-items: center;
+
+    background-color: aqua;
+
+    border-radius: 25px                         ;
+}
+
+.divEditar {
+    display: flex;
+    flex-direction: column;
+
+    margin: 20px;
+
+    width: 100px;
+    height: 100px;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.divEditarTexto {
+    display: flex;
+
+    margin-bottom: 10px;
+}
+
+.divEditarCor {
+    display: flex;
 }

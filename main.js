@@ -35,6 +35,9 @@ limparNotas.addEventListener("click", function () {
 // Função para criar nova nota
 function criarNota(texto, index, cor, corTexto) {
     const div = document.createElement("div");
+    const divEditar = document.createElement("div")
+    const divEditarTexto = document.createElement("div")
+    const divEditarCor = document.createElement("div")
 
     const p = document.createElement("p");
     const botaoEditar = document.createElement("button");
@@ -50,13 +53,24 @@ function criarNota(texto, index, cor, corTexto) {
     botaoEditar.textContent = "Editar";
     botaoExcluir.textContent = "Excluir";
 
+
     div.appendChild(p);
-    div.appendChild(botaoEditar);
-    div.appendChild(botaoExcluir);
-    div.appendChild(inputCor);
-    div.appendChild(inputCorTexto);
+    div.appendChild(divEditar);
+    divEditar.appendChild(divEditarTexto);
+    divEditar.appendChild(divEditarCor);
+
+
+    divEditarTexto.appendChild(botaoEditar);
+    divEditarTexto.appendChild(botaoExcluir);
+
+    divEditarCor.appendChild(inputCor);
+    divEditarCor.appendChild(inputCorTexto);
 
     div.className = "nota";
+    divEditar.className = "divEditar";
+    divEditarTexto.className = "divEditarTexto"
+    divEditarCor.className = "divEditarCor"
+
 
     // Verifica se o índice é indefinido
     if (index !== undefined) {
