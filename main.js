@@ -33,7 +33,7 @@ limparNotas.addEventListener("click", function () {
 });
 
 // Função para criar nova nota
-function criarNota(texto, index, cor) {
+function criarNota(texto, index, cor, corTexto) {
     const div = document.createElement("div");
 
     const p = document.createElement("p");
@@ -43,6 +43,9 @@ function criarNota(texto, index, cor) {
     const inputCor = document.createElement("input");
     inputCor.type = "color";
 
+    const inputCorTexto = document.createElement("input");
+    inputCorTexto.type = "color";
+
     p.textContent = texto;
     botaoEditar.textContent = "Editar";
     botaoExcluir.textContent = "Excluir";
@@ -51,13 +54,16 @@ function criarNota(texto, index, cor) {
     div.appendChild(botaoEditar);
     div.appendChild(botaoExcluir);
     div.appendChild(inputCor);
+    div.appendChild(inputCorTexto);
 
     div.className = "nota";
 
     // Verifica se o índice é indefinido
     if (index !== undefined) {
         inputCor.value = cor;
+        inputCorTexto.value = corTexto;
         div.style.backgroundColor = cor;
+        p.style.color = corTexto;
     }
 
     notasSalvas.appendChild(div);
@@ -72,16 +78,22 @@ function criarNota(texto, index, cor) {
 
     // Função para editar nota
     botaoEditar.addEventListener("click", function () {
-        editarNota(p, div, inputCor);
+        editarNota(p, div, inputCor, inputCorTexto);
     });
 
-    // Ouvinte de evento para detectar test verr mudança de cor em tempo real
+    // Detect mudança de cor test verigor de fundo
     inputCor.addEventListener("input", function () {
         div.style.backgroundColor = inputCor.value;
         salvarNota();
     });
 
-    function editarNota(p, div, inputCor) {
+    // Detect mudança de cor do texto
+    inputCorTexto.addEventListener("input", function () {
+        p.style.color = inputCorTexto.value;
+        salvarNota();
+    });
+
+    function editarNota(p, div, inputCor, inputCorTexto) {
         const textareaEdicao = document.createElement("textarea");
         textareaEdicao.value = p.textContent;
         div.replaceChild(textareaEdicao, p);
@@ -95,6 +107,7 @@ function criarNota(texto, index, cor) {
             div.replaceChild(p, textareaEdicao);
             div.removeChild(botaoSalvar);
             div.style.backgroundColor = inputCor.value;
+            p.style.color = inputCorTexto.value;
             salvarNota();
         });
     }
