@@ -76,6 +76,8 @@ function criarNota(texto, index, cor, corTexto) {
     botaoEditar.className = "botaoEditar";
     botaoExcluir.className = "botaoExcluir";
 
+    inputCorTexto.className = "inputCorTexto"
+
     // Verifica se o índice é indefinido
     if (index !== undefined) {
         inputCor.value = cor;
@@ -117,6 +119,8 @@ function criarNota(texto, index, cor, corTexto) {
         div.replaceChild(textareaEdicao, p);
 
         const botaoSalvar = document.createElement("button");
+        botaoSalvar.className = "botoesHeader"
+        
         botaoSalvar.textContent = "Salvar";
         div.appendChild(botaoSalvar);
 
@@ -139,9 +143,11 @@ function salvarNota() {
     divsNotas.forEach(function (div) {
         const p = div.querySelector('p');
         const inputCor = div.querySelector("input");
+        const inputCorTexto = div.querySelector(".inputCorTexto")
         notas.push({
             texto: p.textContent,
-            cor: inputCor.value
+            cor: inputCor.value,
+            corTexto: inputCorTexto.value
         });
     });
 
