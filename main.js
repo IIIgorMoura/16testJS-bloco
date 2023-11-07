@@ -71,6 +71,10 @@ function criarNota(texto, index, cor, corTexto) {
     divEditarTexto.className = "divEditarTexto"
     divEditarCor.className = "divEditarCor"
 
+    p.className = "textoCaixa"
+
+    botaoEditar.className = "botaoEditar";
+    botaoExcluir.className = "botaoExcluir";
 
     // Verifica se o índice é indefinido
     if (index !== undefined) {

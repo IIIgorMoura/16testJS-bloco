@@ -8,41 +8,121 @@
 
 body {
     font: 600 20px Verdana, Geneva, Tahoma, sans-serif;
+    color: #fff;
+}
+
+/* header */
+header {
+    display: flex;
+    flex-direction: row;
+
+    align-items: center;
+    justify-content: space-around;
+
+    background-image: linear-gradient(to bottom right, #0fd5d5, #0000ff);
+}
+
+textarea {
+    display: flex;
+    align-items: center;
+    
+    text-align: center;
+    font: 200 12px verdana;
+    
+    border-radius: 5px;
+
+    margin: 10px;
+    
+    width: 400px;
+}
+
+.textoCaixa {
+    margin: 25px;
+}
+
+/* body */
+#notas-salvas {
+    display: flex;
+    width: 100vw;
+
+    flex-wrap: wrap;
+
+    align-items: center;
+    justify-content: center;
 }
 
 .nota {
     display: flex;
+    flex-direction: column;
 
     width: 600px;
-    height: 200px;
+    height: auto;
     
     justify-content: center;
     align-items: center;
 
-    background-color: aqua;
+    background-color: #0000ff;
 
-    border-radius: 25px                         ;
+    box-shadow: 10px 10px 10px 0px rgb(173, 173, 173);
+
+    border-radius: 25px;
+    margin: 20px;
 }
 
 .divEditar {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 
     margin: 20px;
 
-    width: 100px;
+    width: 500px;
     height: 100px;
 
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
 }
 
 .divEditarTexto {
     display: flex;
 
+    flex-direction: row;
+
     margin-bottom: 10px;
 }
 
 .divEditarCor {
     display: flex;
+    flex-direction: row;
+}
+
+button {
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    width: 100px;
+    height: 50px;
+    
+}
+
+.botaoEditar {
+    display: flex;
+
+    border-top-left-radius: 25px;
+    border-bottom-left-radius: 25px;
+}
+
+.botaoExcluir {
+    display: flex;
+
+    border-top-right-radius: 25px;
+    border-bottom-right-radius: 25px;
+}
+
+input {
+    display: flex;
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
 }
