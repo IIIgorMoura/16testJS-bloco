@@ -76,4 +76,8 @@ function criarNota(texto, index) {
 function editarNota(p, div, inputCor) {
     const textareaEdicao = document.createElement("textarea")
     textareaEdicao.value = p.textContent.div.replaceChild(textareaEdicao, p)
+
+    const botaoSalvar = document.createElement("button")
+    botaoSalvar.textContent = "Salvar"
+    div.appendChild(botaoSalvar)
 }
