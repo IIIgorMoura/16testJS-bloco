@@ -75,6 +75,12 @@ function criarNota(texto, index, cor) {
         editarNota(p, div, inputCor);
     });
 
+    // Ouvinte de evento para detectar test verr mudança de cor em tempo real
+    inputCor.addEventListener("input", function () {
+        div.style.backgroundColor = inputCor.value;
+        salvarNota();
+    });
+
     function editarNota(p, div, inputCor) {
         const textareaEdicao = document.createElement("textarea");
         textareaEdicao.value = p.textContent;
