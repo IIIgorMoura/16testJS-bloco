@@ -1,83 +1,113 @@
-const novaNota = document.getElementById("nota-nota")
-const adicionarNota = document.getElementById("adicionar-nota")
-const limparNotas = document.getElementById("limpar-notas")
-const notasSalvas = document.getElementById("notas-salvas")
+const novaNota = document.getElementById("nova-nota");
+const adicionarNota = document.getElementById("adicionar-nota");
+const limparNotas = document.getElementById("limpar-notas");
+const notasSalvas = document.getElementById("notas-salvas");
 
-// verif se tem alguma nota no arnazenamento local
+// Verifica se há alguma nota no armazenamento local
 if (localStorage.getItem("notas")) {
-    // recupera o valor do item "notas" do localStorage e converte de volta para JS usando JSON.parse()
-    const notas = JSON.parse(localStorage.getItem("notas"))
+    // Recupera o valor do item "notas" do localStorage e converte de volta para JS usando JSON.parse()
+    const notas = JSON.parse(localStorage.getItem("notas"));
 
-    // percorre cada nota usando loop e usa funcao criarNota()
+    // Percorre cada nota usando loop e usa a função criarNota()
     notas.forEach(function (nota, index) {
-        criarNota(nota, index)
-    })
+        criarNota(nota.texto, index, nota.cor);
+    });
 }
 
-// add nova nota
+// Adiciona nova nota
 adicionarNota.addEventListener("click", function () {
-    // pega txt do txtarea, salvando em textoNota sem espacos no inicio e final 
-    const textoNota = novaNota.value.trim()
+    // Pega texto do textarea, salvando em textoNota sem espaços no início e final
+    const textoNota = novaNota.value.trim();
 
     if (textoNota !== '') {
-        criarNota(textoNota)
-        salvarNota()
-        novaNota.value = ''
+        criarNota(textoNota);
+        salvarNota();
+        novaNota.value = '';
     }
-})
+});
 
-// apaga tds notas
+// Apaga todas as notas
 limparNotas.addEventListener("click", function () {
-    notasSalvas.innerHTML = ''
-    localStorage.removeItem('notas')
-})
+    notasSalvas.innerHTML = '';
+    localStorage.removeItem('notas');
+});
 
-// func criar nova nota
-function criarNota(texto, index) {
-    const div = document.createElement("div")
+// Função para criar nova nota
+function criarNota(texto, index, cor) {
+    const div = document.createElement("div");
 
-    const p = document.createElement("p")
-    const botaoEditar = document.createElement("button")
-    const botaoExcluir = document.createElement("button")
+    const p = document.createElement("p");
+    const botaoEditar = document.createElement("button");
+    const botaoExcluir = document.createElement("button");
 
-    const inputCor = documet.createElement("input")
-    input.type = "color"
+    const inputCor = document.createElement("input");
+    inputCor.type = "color";
 
-    p.textContent = texto
-    botaoEditar.textContent = "Editar"
-    botaoExcluir.textContent = "Excluir"
+    p.textContent = texto;
+    botaoEditar.textContent = "Editar";
+    botaoExcluir.textContent = "Excluir";
 
-    div.appendChild(p)
-    div.appendChild(botaoEditar)
-    div.appendChild(botaoExcluir)
-    div.appendChild(inputCor)
+    div.appendChild(p);
+    div.appendChild(botaoEditar);
+    div.appendChild(botaoExcluir);
+    div.appendChild(inputCor);
 
-    div.className = "nota"
+    div.className = "nota";
 
-    // verif SE indice é undef
+    // Verifica se o índice é indefinido
     if (index !== undefined) {
-        const notas = JSON.parse(localStorage.getItem("notas"))
-        inputCor.value = notas[index].cor;
-        div.style.backgroundColor = notas[index].cor
+        inputCor.value = cor;
+        div.style.backgroundColor = cor;
     }
 
-    notasSalvas.appendChild(div)
+    notasSalvas.appendChild(div);
 
-    // funcao pra excluir nota
-    botaoEditar.addEventListener("click", function () {
+    // Função para excluir nota
+    botaoExcluir.addEventListener("click", function () {
         if (confirm("Tem certeza que deseja excluir esta nota?")) {
-            div.remove()
-            salvarNota()
+            div.remove();
+            salvarNota();
         }
+    });
 
-    })
+    // Função para editar nota
+    botaoEditar.addEventListener("click", function () {
+        editarNota(p, div, inputCor);
+    });
+
+    function editarNota(p, div, inputCor) {
+        const textareaEdicao = document.createElement("textarea");
+        textareaEdicao.value = p.textContent;
+        div.replaceChild(textareaEdicao, p);
+
+        const botaoSalvar = document.createElement("button");
+        botaoSalvar.textContent = "Salvar";
+        div.appendChild(botaoSalvar);
+
+        botaoSalvar.addEventListener("click", function() {
+            p.textContent = textareaEdicao.value;
+            div.replaceChild(p, textareaEdicao);
+            div.removeChild(botaoSalvar);
+            div.style.backgroundColor = inputCor.value;
+            salvarNota();
+        });
+    }
 }
 
-function editarNota(p, div, inputCor) {
-    const textareaEdicao = document.createElement("textarea")
-    textareaEdicao.value = p.textContent.div.replaceChild(textareaEdicao, p)
+// Função para salvar notas no armazenamento local
+function salvarNota() {
+    const notas = [];
+    const divsNotas = notasSalvas.querySelectorAll(".nota");
 
-    const botaoSalvar = document.createElement("button")
-    botaoSalvar.textContent = "Salvar"
-    div.appendChild(botaoSalvar)
+    divsNotas.forEach(function (div) {
+        const p = div.querySelector('p');
+        const inputCor = div.querySelector("input");
+        notas.push({
+            texto: p.textContent,
+            cor: inputCor.value
+        });
+    });
+
+    // JSON.stringify converte o array de notas em uma string JSON
+    localStorage.setItem("notas", JSON.stringify(notas));
 }
